@@ -480,8 +480,37 @@ void setup_palette2() {
   for (i = 0; i < 16; i++)
     pal_col(i, Palette_Table2[i] ^ attract);
 }
-
+void select_difficulty(void){
+  int difficulty=rand() % (3 + 1 - 0) + 0;
+  
+  
+  if(difficulty==0){
+    START_SPEED =12;
+    MAX_SPEED =5;
+    //MAX_SCORE =3;
+    MAX_BLOCK =0;
+  }
+  if(difficulty==1){
+      START_SPEED =10;
+      MAX_SPEED =4;
+      //MAX_SCORE =7;
+      MAX_BLOCK =10;
+  }
+  if(difficulty==2){
+    START_SPEED =8;
+    MAX_SPEED =3;
+    //MAX_SCORE =10;
+    MAX_BLOCK =20;
+  }
+    if(difficulty==3){
+    START_SPEED =5;
+    MAX_SPEED =2;
+    //MAX_SCORE =20;
+    MAX_BLOCK =40;
+  }
+}
 void play_round() {
+  select_difficulty();
   ppu_off();
   setup_attrib_table();
   setup_palette();
@@ -489,6 +518,7 @@ void play_round() {
   clrscr();
   draw_playfield();
   reset_players();
+  
   while (1) {
     make_move();
     if (gameover) return; // attract mode -> start
@@ -512,7 +542,9 @@ void play_round() {
   }
 }
 
+
 void play_game() {
+  
   gameover = 0;
   init_game();
   if (!attract)
@@ -571,34 +603,6 @@ void title_screen(void)
   }
 }
 
-void select_difficulty(void){
-  int difficulty=0;
-  
-  if(difficulty==0){
-    START_SPEED =12;
-    MAX_SPEED =5;
-    MAX_SCORE =3;
-    MAX_BLOCK =0;
-  }
-  if(difficulty==1){
-      START_SPEED =10;
-      MAX_SPEED =4;
-      MAX_SCORE =7;
-      MAX_BLOCK =10;
-  }
-  if(difficulty==2){
-    START_SPEED =8;
-    MAX_SPEED =3;
-    MAX_SCORE =10;
-    MAX_BLOCK =20;
-  }
-    if(difficulty==3){
-    START_SPEED =5;
-    MAX_SPEED =2;
-    MAX_SCORE =20;
-    MAX_BLOCK =40;
-  }
-}
 
 
 void main() {
